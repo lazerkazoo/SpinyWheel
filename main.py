@@ -2,6 +2,8 @@ import random, time, sys
 from termcolor import colored
 
 stuff = []
+confirmations = ['Y', 'y', '']
+
 
 def add():
     print('')
@@ -34,21 +36,28 @@ def spin():
         return
     random.shuffle(stuff)
     print('')
-    print(f'{colored(random.choice(stuff), 'green')} Has Been Chosen.')
-    time.sleep(2)
+    removed = random.choice(stuff)
+    print(f'{colored(removed, 'green')} Has Been Chosen.')
+    time.sleep(1)
     print('')
-    main()
+    remove = input('Would You Like to Remove The Winner[Y/N]? -> ')
+    for i in confirmations:
+        if remove == i:
+            stuff.remove(removed)
+            print(colored(f'Removed {removed} From the Wheel!', 'green'))
+            print('')
+            break
 
+    main()
 
 def flip_coin():
     print('')
-    print(random.choice(['heads', 'tails']))
+    print(colored(random.choice(['heads', 'tails']), 'green'))
     time.sleep(2)
     print('')
     main()
 
 def stop():
-    confirmations = ['Y', 'y', '']
     confirm = input('Are You Sure [Y/N]? -> ')
     for i in confirmations:
         if confirm == i:
